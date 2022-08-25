@@ -33,7 +33,7 @@ if model == 'MTS (Пополнению переходящего запаса)':
   safety_stock_days = optimum_inventory_level - lead_time_for_replenishment
   safety_stock_pieces = safety_stock_days * average_day_sales
   
-  st.subheader(f"Оптимальный уровень запаса (в днях): {optimum_inventory_level} дней")
+  st.subheader(f"Оптимальный уровень запаса (в днях): {optimum_inventory_level_days} дней")
   st.subheader(f"Оптимальный уровень запаса (в штуках): {optimum_inventory_level_pieces} штук")
   st.subheader(f"Страховой запас (в днях): {safety_stock_days} дней")
   st.subheader(f"Страховой запас (в штуках): {safety_stock_pieces} штук")
@@ -41,5 +41,5 @@ if model == 'MTS (Пополнению переходящего запаса)':
 if model == 'MTO (Заказ вручную)':
   optimum_inventory_level_days = 0
   optimum_inventory_level_pieces = 0
-  st.subheader(f"Оптимальный уровень запаса (в днях): {optimum_inventory_level} дней")
+  st.subheader(f"Оптимальный уровень запаса (в днях): {optimum_inventory_level_days} дней")
   st.subheader(f"Оптимальный уровень запаса (в штуках): {optimum_inventory_level_pieces} штук")
