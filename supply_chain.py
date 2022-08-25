@@ -29,7 +29,7 @@ if model == 'MTS (Пополнению переходящего запаса)':
   demand_variation = st.slider("Какова ваш коэффициент вариабельности спроса в процентах", 0, 100, 0, 2)
   leadtime_variation = st.slider("Какова ваш коэффициент вариабельности срока поставки (от заказа до поставки) в процентах", 0, 100, 0, 2)
   optimum_inventory_level_days = lead_time_for_replenishment * (1 + ((demand_variation / 100) * (leadtime_variation / 100)))
-  optimum_inventory_level_pieces = optimum_inventory_level * average_day_sales
+  optimum_inventory_level_pieces = optimum_inventory_level_days * average_day_sales
   safety_stock_days = optimum_inventory_level_days - lead_time_for_replenishment
   safety_stock_pieces = safety_stock_days * average_day_sales
   
