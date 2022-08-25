@@ -5,4 +5,4 @@ import plotly.graph_objects as go
 import plotly.express as px
 
 st.subheader("Заполните поля ниже:")
-current_stock = st.number_input(f"Установите текущий уровень запаса в штуках", value=0)
+current_stock = st.number_input("Установите текущий уровень запаса в штуках", value=0)
