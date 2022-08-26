@@ -78,3 +78,7 @@ st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
 st.markdown('''<img src="https://i.ibb.co/HGwb7jb/order-level-illustration.png">''', unsafe_allow_html=True)
 
 #st.area_chart(x=range(30), y=demand_random_generator, width=0, height=0, use_container_width=True)
+
+df = pd.DataFrame(demand_random_generator, columns=['demand'], index=range(30)
+
+st.dataframe(data=df)
