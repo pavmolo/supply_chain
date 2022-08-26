@@ -97,6 +97,8 @@ for i in df['consumption']:
     
 df['orders'] = orders
 df['stocks'] = stocks
+df['safety_stocks'] = safety_stock_pieces
+df['reorder_level'] = reorder_level
 
 st.subheader("Имитационное моделирование объема запаса / дефицита")
 quant_deficit = (df['stocks'] < 0).sum()
@@ -106,7 +108,10 @@ st.area_chart(df['stocks'])
 
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=df.index, y=df['stocks'], fill='tozeroy'))
+fig.add_trace(go.Scatter(x=df.index, y=df['safety_stocks'])
+fig.add_trace(go.Scatter(x=df.index, y=df['reorder_level'])
 st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
+
 
 #st.table(data=df)
 
