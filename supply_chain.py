@@ -39,11 +39,13 @@ st.subheader(f"Оптимальный уровень запаса (в штука
 st.subheader(f"Страховой запас (в днях): {safety_stock_days} дней")
 st.subheader(f"Страховой запас (в штуках): {safety_stock_pieces} штук")
 
-col1, col2, col3, col4 = st.columns(4)
+col1, col2 = st.columns(2)
 col1.metric("Оптимальный уровень запаса (в днях)", f"{optimum_inventory_level_days} дней")
 col2.metric("Оптимальный уровень запаса (в штуках)", f"{optimum_inventory_level_pieces} штук")
-col3.metric("Страховой запас (в днях)", f"{safety_stock_days} дней")
-col4.metric("Страховой запас (в штуках)", f"{safety_stock_pieces} штук")
+
+col1, col2 = st.columns(2)
+col1.metric("Страховой запас (в днях)", f"{safety_stock_days} дней")
+col2.metric("Страховой запас (в штуках)", f"{safety_stock_pieces} штук")
 
 demand_random_generator = [random.normalvariate(average_day_sales, sigma_demand) for x in range(30)]
 #st.subheader(f"Колебания спроса: {demand_random_generator} дней")
