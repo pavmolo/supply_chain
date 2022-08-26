@@ -106,6 +106,7 @@ st.area_chart(df['stocks'])
 
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=df.index, y=df['stocks'], fill='tozeroy'))
+st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
 
 #st.table(data=df)
 
