@@ -6,7 +6,7 @@ import plotly.express as px
 import random
 
 
-st.subheader("Заполните поля ниже:")
+st.subheader("Рачет уровня запаса")
 current_stock = st.number_input("Установите текущий уровень запаса в штуках", value=0)
 
 order_in_process = st.number_input("Установите ранее сделанные, но не выполенные заказы", value=0)
@@ -17,6 +17,8 @@ stock_level = current_stock + order_in_process
 #st.subheader(f"Уровень запаса: {stock_level} штук")
 st.metric("Уровень запаса", f"{stock_level} штук")
 st.info('Уровень запаса - это фактический запас в точке хранения плюс уже заказанный, но еще не поставленный товар')
+
+st.subheader("Рачет точки заказа")
 sales_3m = st.number_input("Укажите продажи за последние три месяца, руб.", value=0)
 
 days_3m = st.number_input("Укажите количество дней в последних трех месяцах", value=90)
@@ -33,7 +35,7 @@ leadtime_variation = st.slider("Какова ваш коэффициент ва�
 optimum_inventory_level_days = lead_time_for_replenishment * (1 + ((demand_variation / 100) * (leadtime_variation / 100)))
 optimum_inventory_level_pieces = optimum_inventory_level_days * average_day_sales
 safety_stock_days = optimum_inventory_level_days - lead_time_for_replenishment
-safety_stock_pieces = safety_stock_days * average_day_sales
+reorder_level = safety_stock_days * average_day_sales
 
 sigma_demand = (demand_variation / 100) * average_day_sales
 sigma_leadtime = (leadtime_variation / 100) * lead_time_for_replenishment
@@ -45,7 +47,7 @@ sigma_leadtime = (leadtime_variation / 100) * lead_time_for_replenishment
 
 col1, col2 = st.columns(2)
 col1.metric("Оптимальный уровень запаса (в днях)", f"{np.around(optimum_inventory_level_days, decimals=2, out=None)} дней")
-col2.metric("Оптимальный уровень запаса (в штуках)", f"{np.around(optimum_inventory_level_pieces, decimals=2, out=None)} штук")
+col2.metric("Оптимальный уровень запаса (в штуках)", f"{np.around(reorder_level, decimals=2, out=None)} штук")
 
 col1, col2 = st.columns(2)
 col1.metric("Страховой запас (в днях)", f"{np.around(safety_stock_days, decimals=2, out=None)} дней")
@@ -53,12 +55,16 @@ col2.metric("Страховой запас (в штуках)", f"{np.around(safe
 st.caption('Страховой запас - это надбавка к необходимому для хранения запасу с целью застраховать от дефицита из-ща двух причин: задержек поставки и всплексков спроса')
 
 
-st.metric("Уровень (точка) заказа", f"{np.around(optimum_inventory_level_pieces, decimals=2, out=None)} штук")
+st.metric("Уровень (точка) заказа", f"{np.around(reorder_level, decimals=2, out=None)} штук")
 st.caption('Точка заказа - это объем запаса, при котором необходимо сделать заказ, чтобы времени хватило до исчерпания запаса к моменту попонения с учетом рисков задержек поставки и изменений спроса')
 
 demand_random_generator = [random.normalvariate(average_day_sales, sigma_demand) for x in range(30)]
 #st.subheader(f"Колебания спроса: {demand_random_generator} дней")
 leadtime_random_generator = [random.normalvariate(lead_time_for_replenishment, sigma_leadtime) for x in range(30)]
+
+st.subheader("Расчет необходимого заказа")
+neded_order = reorder_level - stock_level
+st.metric("Необходимый заказ", f"{neded_order} шт")
 
 
 fig = px.line(y=demand_random_generator, title='Сгенерированный случайный спрос на основании введенных данных')
