@@ -108,7 +108,7 @@ for i in range(30):
   stock_fact_plus.append(stock_fact_dinamic_plus)
   
   # Делаем заказ
-  neded_order_dinamic = reorder_level - stock_fact_dinamic_plus - order_in_process_dinamic
+  neded_order_dinamic = reorder_level - stock_fact_dinamic_plus
   if neded_order_dinamic < 0:
     neded_order_dinamic = 0
   orders.append(neded_order_dinamic)
@@ -125,7 +125,6 @@ df_minus = pd.DataFrame(stock_fact_plus,index = numbers_minus, columns = ['fact_
 st.table(data=df_minus)
 
 st.subheader("Имитационное моделирование объема запаса / дефицита")
-st.subheader(df['consumption'][2])
 quant_deficit = (df['stocks'] < 0).sum()
 st.info(f"Страхового запаса не хватило в {quant_deficit} днях из {df['stocks'].count()}")
 
