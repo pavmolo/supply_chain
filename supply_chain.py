@@ -110,7 +110,7 @@ for i in range(30):
   stock_fact_plus.append(stock_fact_dinamic_plus)
   
   # Делаем заказ
-  neded_order_dinamic = reorder_level - stock_fact_dinamic_plus
+  neded_order_dinamic = reorder_level - stock_fact_dinamic_minus
   if neded_order_dinamic < 0:
     neded_order_dinamic = 0
   orders.append(neded_order_dinamic)
