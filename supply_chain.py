@@ -118,7 +118,7 @@ fig.add_trace(go.Scatter(x=df.index, y=df['stocks'], fill='tozeroy', name='За�
 fig.add_trace(go.Scatter(x=df.index, y=df['stock_level_before_replenishment'], fill='tozeroy', name='Уровень запаса перед пополнением'))
 fig.add_trace(go.Scatter(x=df.index, y=df['safety_stocks'], name='Страховой запас'))
 fig.add_trace(go.Scatter(x=df.index, y=df['reorder_level'], name='Точка заказа'))
-
+fig.update_layout(width=800)
 st.plotly_chart(fig, use_container_width=False, sharing="streamlit")
 
 
