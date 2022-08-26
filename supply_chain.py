@@ -97,7 +97,14 @@ for i in df['consumption']:
     
 df['orders'] = orders
 df['stocks'] = stocks
+
+st.subheader("Имитационное моделирование объема запаса / дефицита")
+quant_deficit = (df['stocks'] < 0).sum()
+st.subheader(f"Страхового запаса не зватило в {quant_deficit} днях из {df['stocks'].count()}")
+
 st.area_chart(df['stocks'])
 
-st.table(data=df)
+
+
+#st.table(data=df)
 
