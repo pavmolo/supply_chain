@@ -121,7 +121,7 @@ df['stocks'] = stocks
 df['safety_stocks'] = safety_stock_pieces
 df['reorder_level'] = reorder_level
 
-df_minus = pd.DataFrame(stock_fact_plus, index = number_x_minus, columns = 'fact_stock')
+df_minus = pd.DataFrame(stock_fact_plus)
 st.table(data=df_minus)
 
 st.subheader("Имитационное моделирование объема запаса / дефицита")
