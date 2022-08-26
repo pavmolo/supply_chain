@@ -32,7 +32,7 @@ average_day_sales = sales_3m / days_3m
 average_day_sales_rounded = np.around(average_day_sales, decimals=2, out=None)
 
 #st.subheader(f"Среднедневные продажи за последние три месяца: {average_day_sales} руб. в день")
-st.metric("Среднедневные продажи за последние три месяца", f"{average_day_sales_rounded} руб. в день")
+st.metric("Среднедневные продажи за последние три месяца", f"{average_day_sales_rounded} шт в день")
 
 
 optimum_inventory_level_days = lead_time_for_replenishment * (1 + demand_variation / 100) * ( 1 + leadtime_variation / 100)
