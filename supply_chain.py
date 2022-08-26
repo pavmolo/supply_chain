@@ -104,7 +104,8 @@ st.info(f"Страхового запаса не зватило в {quant_defici
 
 st.area_chart(df['stocks'])
 
-
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=df.index, y=df['stocks'], fill='tozeroy'))
 
 #st.table(data=df)
 
