@@ -4,6 +4,8 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
 import random
+from PIL import Image
+
 
 st.subheader("Заполните поля ниже:")
 current_stock = st.number_input("Установите текущий уровень запаса в штуках", value=0)
@@ -60,5 +62,6 @@ st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
 fig = px.line(y=leadtime_random_generator, title='Сгенерированный случайный срок от заказа до поставки на основании введенных данных')
 st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
 
-st.image('http://kaizen-lms.ru/order_level_illustration.png')
+image_1 = Image.open('http://kaizen-lms.ru/order_level_illustration.png')
+st.image(image_1)
 #st.area_chart(x=range(30), y=demand_random_generator, width=0, height=0, use_container_width=True)
