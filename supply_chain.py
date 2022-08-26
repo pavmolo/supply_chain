@@ -7,7 +7,7 @@ import random
 
 
 with st.sidebar:
-
+  st.title('Введите данные для моделирования элемента цепочки поставок')
   st.subheader("Рачет уровня запаса")
   current_stock = st.number_input("Установите текущий уровень запаса в штуках", value=0)
 
@@ -22,6 +22,7 @@ with st.sidebar:
   demand_variation = st.slider("Какова ваш коэффициент вариабельности спроса в процентах", 0, 100, 0, 2)
   leadtime_variation = st.slider("Какова ваш коэффициент вариабельности срока поставки (от заказа до поставки) в процентах", 0, 100, 0, 2)
 
+st.title('Результат моделирования')
 #st.subheader(f"Уровень запаса: {stock_level} штук")
 st.metric("Уровень запаса", f"{stock_level} штук")
 st.info('Уровень запаса - это фактический запас в точке хранения плюс уже заказанный, но еще не поставленный товар')
@@ -69,7 +70,7 @@ neded_order = reorder_level - stock_level
 if neded_order < 0:
   st.error(f'Заказывать не нужно. До заказа нужно израсходовать {-neded_order} шт')
 else:
-  st.metric("Необходимый заказ:", f"{neded_order} шт")
+  st.metric("Необходимый заказ:", f"{np.around(neded_order, decimals=2, out=None)} шт")
 
 with st.expander("Сгенерированы случайные величины спроса и сроков поставки на основании показателей вариабельности, введенных вами. Нажмите сюда, чтобы посмотреть их"):
   fig = px.line(y=demand_random_generator, title='Сгенерированный случайный спрос на основании введенных данных')
