@@ -4,7 +4,6 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
 import random
-from PIL import Image
 
 
 st.subheader("Заполните поля ниже:")
