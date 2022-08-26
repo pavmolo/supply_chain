@@ -32,7 +32,7 @@ st.metric("Среднедневные продажи за последние т�
 lead_time_for_replenishment = st.slider("Укажите время в днях от момента заказа до момента поставки (оставьте 1 при ежедневных поставках)", 0.00, 20.00, 1.00, 0.01)
 demand_variation = st.slider("Какова ваш коэффициент вариабельности спроса в процентах", 0, 100, 0, 2)
 leadtime_variation = st.slider("Какова ваш коэффициент вариабельности срока поставки (от заказа до поставки) в процентах", 0, 100, 0, 2)
-optimum_inventory_level_days = lead_time_for_replenishment * (1 + ((demand_variation / 100) * (leadtime_variation / 100)))
+optimum_inventory_level_days = lead_time_for_replenishment * (1 + demand_variation / 100) * ( 1 + leadtime_variation / 100)
 reorder_level = optimum_inventory_level_days * average_day_sales
 safety_stock_days = optimum_inventory_level_days - lead_time_for_replenishment
 safety_stock_pieces = safety_stock_days * average_day_sales
