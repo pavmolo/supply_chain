@@ -14,8 +14,9 @@ order_in_process = st.number_input("Установите ранее сделан
 stock_level = current_stock + order_in_process
 
 
-#st.subheader(f"Уровень заказа: {stock_level} штук")
-st.metric("Уровень заказа", f"{stock_level} штук")
+#st.subheader(f"Уровень запаса: {stock_level} штук")
+st.metric("Уровень запаса", f"{stock_level} штук")
+st.caption('Уровень запаса - это фактический запас в точке хранения плюс уже заказанный, но еще не поставленный товар')
 
 sales_3m = st.number_input("Укажите продажи за последние три месяца, руб.", value=0)
 
@@ -50,6 +51,8 @@ col2.metric("Оптимальный уровень запаса (в штуках
 col1, col2 = st.columns(2)
 col1.metric("Страховой запас (в днях)", f"{np.around(safety_stock_days, decimals=2, out=None)} дней")
 col2.metric("Страховой запас (в штуках)", f"{np.around(safety_stock_pieces, decimals=2, out=None)} штук")
+st.caption('Страховой запас - это надбавка к необходимому для хранения запасу с целью застраховать от дефицита из-ща двух причин: задержек поставки и всплексков спроса')
+
 
 st.metric("Уровень (точка) заказа", f"{np.around(optimum_inventory_level_pieces, decimals=2, out=None)} штук")
 st.caption('Точка заказа - это объем запаса, при котором необходимо сделать заказ, чтобы времени хватило до исчерпания запаса к моменту попонения с учетом рисков задержек поставки и изменений спроса')
