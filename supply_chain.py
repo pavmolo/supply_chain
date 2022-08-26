@@ -81,5 +81,6 @@ st.markdown('''<img src="https://i.ibb.co/HGwb7jb/order-level-illustration.png">
 
 df = pd.DataFrame(demand_random_generator, columns=['demand'], index=range(30))
 df['lead_time'] = leadtime_random_generator
+df['consumption'] = leadtime_random_generator * demand
 
 st.table(data=df)
