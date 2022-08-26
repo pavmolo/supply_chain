@@ -45,4 +45,4 @@ demand_random_generator = [random.normalvariate(average_day_sales, sigma_demand)
 
 #fig = px.line(y=demand_random_generator, title='Сгенерированный случайный спрос на основании введенных данных')
 #st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
-st.area_chart(y=demand_random_generator, width=0, height=0, use_container_width=True)
+st.area_chart(x=range(30), y=demand_random_generator, width=0, height=0, use_container_width=True)
