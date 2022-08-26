@@ -112,12 +112,12 @@ st.area_chart(df['stocks'])
 
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=df.index, y=df['stocks'], fill='tozeroy', name='Запас перед поставкой'))
-fig.add_trace(go.Scatter(x=df.index, y=df['stock_level_before_replenishment'], fill='tozeroy', name='Уровень запаса перед пополнением'))
+#fig.add_trace(go.Scatter(x=df.index, y=df['stock_level_before_replenishment'], fill='tozeroy', name='Уровень запаса перед пополнением'))
 fig.add_trace(go.Scatter(x=df.index, y=df['safety_stocks'], name='Страховой запас'))
 fig.add_trace(go.Scatter(x=df.index, y=df['reorder_level'], name='Точка заказа'))
 
 st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
 
 
-st.table(data=df)
+#st.table(data=df)
 
