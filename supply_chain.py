@@ -96,13 +96,13 @@ numbers_plus = []
 stock_fact_plus = []
 for i in range(30):
   # Определяем фактический запас прямо перед пополнением
-  number_x_minus = i * 100 - 1
+  number_x_minus = i * 100 + 99
   numbers_minus.append(number_x_minus)
   stock_fact_dinamic_minus = current_stock_dinamic - df['consumption'][i]
   stock_fact_minus.append(stock_fact_dinamic_minus)
   
   # Определяем фактический запас сразу после пополнения
-  number_x_plus = i * 100 + 1
+  number_x_plus = i * 100 + 101
   numbers_plus.append(number_x_plus)
   stock_fact_dinamic_plus = stock_fact_dinamic_minus + neded_order_dinamic
   stock_fact_plus.append(stock_fact_dinamic_plus)
