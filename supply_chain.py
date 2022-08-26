@@ -22,24 +22,22 @@ average_day_sales = sales_3m / days_3m
 
 st.subheader(f"Среднедневные продажи за последние три месяца: {average_day_sales} руб. в день")
 
-model = st.radio('Какова модель осуществления заказов', ['MTS (Пополнению переходящего запаса)', 'MTO (Заказ вручную)'], index=0)
+lead_time_for_replenishment = st.number_input("Укажите время в днях от момента заказа до момента поставки", value=0)
+demand_variation = st.slider("Какова ваш коэффициент вариабельности спроса в процентах", 0, 100, 0, 2)
+leadtime_variation = st.slider("Какова ваш коэффициент вариабельности срока поставки (от заказа до поставки) в процентах", 0, 100, 0, 2)
+optimum_inventory_level_days = lead_time_for_replenishment * (1 + ((demand_variation / 100) * (leadtime_variation / 100)))
+optimum_inventory_level_pieces = optimum_inventory_level_days * average_day_sales
+safety_stock_days = optimum_inventory_level_days - lead_time_for_replenishment
+safety_stock_pieces = safety_stock_days * average_day_sales
 
-if model == 'MTS (Пополнению переходящего запаса)':
-  lead_time_for_replenishment = st.number_input("Укажите время в днях от момента заказа до момента поставки", value=0)
-  demand_variation = st.slider("Какова ваш коэффициент вариабельности спроса в процентах", 0, 100, 0, 2)
-  leadtime_variation = st.slider("Какова ваш коэффициент вариабельности срока поставки (от заказа до поставки) в процентах", 0, 100, 0, 2)
-  optimum_inventory_level_days = lead_time_for_replenishment * (1 + ((demand_variation / 100) * (leadtime_variation / 100)))
-  optimum_inventory_level_pieces = optimum_inventory_level_days * average_day_sales
-  safety_stock_days = optimum_inventory_level_days - lead_time_for_replenishment
-  safety_stock_pieces = safety_stock_days * average_day_sales
-  
-  st.subheader(f"Оптимальный уровень запаса (в днях): {optimum_inventory_level_days} дней")
-  st.subheader(f"Оптимальный уровень запаса (в штуках): {optimum_inventory_level_pieces} штук")
-  st.subheader(f"Страховой запас (в днях): {safety_stock_days} дней")
-  st.subheader(f"Страховой запас (в штуках): {safety_stock_pieces} штук")
-  
-if model == 'MTO (Заказ вручную)':
-  optimum_inventory_level_days = 0
-  optimum_inventory_level_pieces = 0
-  st.subheader(f"Оптимальный уровень запаса (в днях): {optimum_inventory_level_days} дней")
-  st.subheader(f"Оптимальный уровень запаса (в штуках): {optimum_inventory_level_pieces} штук")
+sigma_demand = (demand_variation / 100) * average_day_sales
+sigma_leadtime = (leadtime_variation / 100) * lead_time_for_replenishment
+
+st.subheader(f"Оптимальный уровень запаса (в днях): {optimum_inventory_level_days} дней")
+st.subheader(f"Оптимальный уровень запаса (в штуках): {optimum_inventory_level_pieces} штук")
+st.subheader(f"Страховой запас (в днях): {safety_stock_days} дней")
+st.subheader(f"Страховой запас (в штуках): {safety_stock_pieces} штук")
+
+
+demand_random_generator = random.normalvariate(average_day_sales, sigma_demand) for x in range(30)]
+st.subheader(f"Колебания спроса: {demand_random_generator} дней")
