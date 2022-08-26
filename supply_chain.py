@@ -90,6 +90,7 @@ stock_plus_order = []
 current_stock_dinamic = current_stock
 order_in_process_dinamic = order_in_process
 for i in df['consumption']:
+  stock_plus_order_dinamic = current_stock_dinamic + i + neded_order_dinamic
   stock_level_dinamic = current_stock_dinamic + order_in_process_dinamic
   neded_order_dinamic = reorder_level - stock_level_dinamic
   if neded_order_dinamic < 0:
@@ -97,7 +98,6 @@ for i in df['consumption']:
   orders.append(neded_order_dinamic)
   stocks.append(current_stock_dinamic)
   current_stock_dinamic = current_stock_dinamic + neded_order_dinamic - i
-  stock_plus_order_dinamic = current_stock_dinamic + i
   stock_plus_order.append(stock_plus_order_dinamic)
     
 df['orders'] = orders
