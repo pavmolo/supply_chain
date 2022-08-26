@@ -125,6 +125,7 @@ df_minus = pd.DataFrame(stock_fact_plus,index = numbers_minus, columns = ['fact_
 st.table(data=df_minus)
 
 st.subheader("Имитационное моделирование объема запаса / дефицита")
+st.subheader(df['consumption'][2])
 quant_deficit = (df['stocks'] < 0).sum()
 st.info(f"Страхового запаса не хватило в {quant_deficit} днях из {df['stocks'].count()}")
 
