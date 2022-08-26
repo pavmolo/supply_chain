@@ -39,5 +39,5 @@ st.subheader(f"Страховой запас (в днях): {safety_stock_days} 
 st.subheader(f"Страховой запас (в штуках): {safety_stock_pieces} штук")
 
 
-demand_random_generator = random.normalvariate(average_day_sales, sigma_demand) for x in range(30)]
+demand_random_generator = [random.normalvariate(average_day_sales, sigma_demand) for x in range(30)]
 st.subheader(f"Колебания спроса: {demand_random_generator} дней")
