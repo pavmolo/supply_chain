@@ -51,7 +51,7 @@ col2.metric("Оптимальный уровень запаса (в штуках
 
 col1, col2 = st.columns(2)
 col1.metric("Страховой запас (в днях)", f"{np.around(safety_stock_days, decimals=2, out=None)} дней")
-col2.metric("Страховой запас (в штуках)", f"{np.around(safety_stock_pieces, decimals=2, out=None)} штук")
+col2.metric("Страховой запас (в штуках)", f"{np.around(reorder_level, decimals=2, out=None)} штук")
 st.caption('Страховой запас - это надбавка к необходимому для хранения запасу с целью застраховать от дефицита из-ща двух причин: задержек поставки и всплексков спроса')
 
 
