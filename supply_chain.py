@@ -42,6 +42,8 @@ st.subheader(f"Страховой запас (в штуках): {safety_stock_pi
 
 demand_random_generator = [random.normalvariate(average_day_sales, sigma_demand) for x in range(30)]
 #st.subheader(f"Колебания спроса: {demand_random_generator} дней")
+leadtime_random_generator = [random.normalvariate(lead_time_for_replenishment, sigma_leadtime) for x in range(30)]
+
 
 fig = px.line(y=demand_random_generator, title='Сгенерированный случайный спрос на основании введенных данных')
 st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
