@@ -90,26 +90,43 @@ stock_plus_order = []
 current_stock_dinamic = current_stock
 order_in_process_dinamic = order_in_process
 neded_order_dinamic = neded_order
-for i in df['consumption']:
-  stock_plus_order_dinamic = current_stock_dinamic + i + neded_order_dinamic
-  stock_level_dinamic = current_stock_dinamic + order_in_process_dinamic
-  neded_order_dinamic = reorder_level - stock_level_dinamic
+numbers_minus = []
+stock_fact_minus = []
+numbers_plus = []
+stock_fact_plus = []
+for i in range(30):
+  # Определяем фактический запас прямо перед пополнением
+  number_x_minus = i * 100 - 1
+  numbers_minus.append(number_x_minus)
+  stock_fact_dinamic_minus = current_stock_dinamic - df['consumption'][i]
+  stock_fact_minus.append(stock_fact_dinamic_minus)
+  
+  # Определяем фактический запас сразу после пополнения
+  number_x_plus = i * 100 + 1
+  numbers_plus.append(number_x_plus)
+  stock_fact_dinamic_plus = stock_fact_dinamic_minus + neded_order_dinamic
+  stock_fact_plus.append(stock_fact_dinamic_plus)
+  
+  # Делаем заказ
+  neded_order_dinamic = reorder_level - stock_fact_dinamic_plus - order_in_process_dinamic
   if neded_order_dinamic < 0:
     neded_order_dinamic = 0
   orders.append(neded_order_dinamic)
-  stocks.append(current_stock_dinamic)
-  current_stock_dinamic = current_stock_dinamic + neded_order_dinamic - i
-  stock_plus_order.append(stock_plus_order_dinamic)
+  stocks.append(stock_fact_dinamic_minus)
+  current_stock_dinamic = stock_fact_dinamic_plus
+  
     
 df['orders'] = orders
 df['stocks'] = stocks
 df['safety_stocks'] = safety_stock_pieces
 df['reorder_level'] = reorder_level
-df['stock_level_before_replenishment'] = stock_plus_order
+
+df_minus = pd.DataFrame(stock_fact_plus, index = number_x_minus, column'fact_stock')
+st.table(data=df_minus)
 
 st.subheader("Имитационное моделирование объема запаса / дефицита")
 quant_deficit = (df['stocks'] < 0).sum()
-st.info(f"Страхового запаса не зватило в {quant_deficit} днях из {df['stocks'].count()}")
+st.info(f"Страхового запаса не хватило в {quant_deficit} днях из {df['stocks'].count()}")
 
 #st.area_chart(df['stocks'])
 
