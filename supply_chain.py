@@ -82,5 +82,15 @@ st.markdown('''<img src="https://i.ibb.co/HGwb7jb/order-level-illustration.png">
 df = pd.DataFrame(demand_random_generator, columns=['demand'], index=range(30))
 df['lead_time'] = leadtime_random_generator
 df['consumption'] = df['lead_time'] * df['demand']
-
+orders = []
+for i in df['consumption']:
+  current_stock_dinamic = current_stock
+  order_in_process_dinamic = order_in_process
+  stock_level_dinamic = current_stock_dinamic + order_in_process_dinamic
+  neded_order_dinamic = reorder_level - stock_level_dinamic
+  if neded_order_dinamic < 0:
+    neded_order_dinamic = 0
+  orders.append(neded_order_dinamic)
+    
+df['orders'] = orders
 st.table(data=df)
