@@ -15,7 +15,7 @@ with st.sidebar:
 
   stock_level = current_stock + order_in_process
   st.subheader("Параметры для расчета точки заказа:")
-  sales_3m = st.number_input("Укажите продажи за последние три месяца, руб.", value=0)
+  sales_3m = st.number_input("Укажите объем продаж данного SKU за последние три месяца, шт", value=0)
   days_3m = st.number_input("Укажите количество дней в последних трех месяцах", value=90)
   lead_time_for_replenishment = st.slider("Укажите время в днях от момента заказа до момента поставки (оставьте 1 при ежедневных поставках)", 0.00, 20.00, 1.00, 0.01)
   st.title('Параметры для расчета страхового запаса:')
