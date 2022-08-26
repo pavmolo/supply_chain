@@ -97,5 +97,7 @@ for i in df['consumption']:
     
 df['orders'] = orders
 df['stocks'] = stocks
-st.table(data=df)
 st.area_chart(df['stocks'])
+
+st.table(data=df)
+
