@@ -23,7 +23,7 @@ average_day_sales = sales_3m / days_3m
 
 st.subheader(f"Среднедневные продажи за последние три месяца: {average_day_sales} руб. в день")
 
-lead_time_for_replenishment = st.number_input("Укажите время в днях от момента заказа до момента поставки", value=0, step=0.01)
+lead_time_for_replenishment = st.number_input("Укажите время в днях от момента заказа до момента поставки", value=0.00, step=0.01)
 demand_variation = st.slider("Какова ваш коэффициент вариабельности спроса в процентах", 0, 100, 0, 2)
 leadtime_variation = st.slider("Какова ваш коэффициент вариабельности срока поставки (от заказа до поставки) в процентах", 0, 100, 0, 2)
 optimum_inventory_level_days = lead_time_for_replenishment * (1 + ((demand_variation / 100) * (leadtime_variation / 100)))
