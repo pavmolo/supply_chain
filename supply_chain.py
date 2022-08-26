@@ -83,6 +83,7 @@ df = pd.DataFrame(demand_random_generator, columns=['demand'], index=range(30))
 df['lead_time'] = leadtime_random_generator
 df['consumption'] = df['lead_time'] * df['demand']
 orders = []
+stocks = []
 current_stock_dinamic = current_stock
 order_in_process_dinamic = order_in_process
 for i in df['consumption']:
@@ -91,7 +92,9 @@ for i in df['consumption']:
   if neded_order_dinamic < 0:
     neded_order_dinamic = 0
   orders.append(neded_order_dinamic)
+  stocks.append(current_stock_dinamic)
   current_stock_dinamic = current_stock_dinamic + neded_order_dinamic - i
     
 df['orders'] = orders
+df['stocks'] = stocks
 st.table(data=df)
