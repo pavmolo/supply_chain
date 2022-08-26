@@ -87,7 +87,7 @@ df['consumption'] = df['lead_time'] * df['demand']
 orders = []
 stocks = []
 stock_plus_order = []
-current_stock_dinamic = current_stock
+stock_fact_dinamic_plus = current_stock
 order_in_process_dinamic = order_in_process
 neded_order_dinamic = neded_order
 numbers_minus = []
@@ -98,7 +98,7 @@ for i in range(30):
   # Определяем фактический запас прямо перед пополнением
   number_x_minus = i * 100 + 99
   numbers_minus.append(number_x_minus)
-  stock_fact_dinamic_minus = current_stock_dinamic - df['consumption'][i]
+  stock_fact_dinamic_minus = stock_fact_dinamic_plus - df['consumption'][i]
   stock_fact_minus.append(stock_fact_dinamic_minus)
   
   # Определяем фактический запас сразу после пополнения
@@ -113,7 +113,6 @@ for i in range(30):
     neded_order_dinamic = 0
   orders.append(neded_order_dinamic)
   stocks.append(stock_fact_dinamic_minus)
-  current_stock_dinamic = stock_fact_dinamic_plus
   
     
 df['orders'] = orders
