@@ -118,7 +118,7 @@ fig.add_trace(go.Scatter(x=df.index, y=df['stocks'], fill='tozeroy', name='За�
 fig.add_trace(go.Scatter(x=df.index, y=df['safety_stocks'], name='Страховой запас'))
 fig.add_trace(go.Scatter(x=df.index, y=df['reorder_level'], name='Точка заказа'))
 
-st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
+st.plotly_chart(fig, use_container_width=False, sharing="streamlit")
 
 
 #st.table(data=df)
