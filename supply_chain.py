@@ -29,7 +29,7 @@ average_day_sales_rounded = np.around(average_day_sales, decimals=2, out=None)
 #st.subheader(f"Среднедневные продажи за последние три месяца: {average_day_sales} руб. в день")
 st.metric("Среднедневные продажи за последние три месяца", f"{average_day_sales_rounded} руб. в день")
 
-lead_time_for_replenishment = st.slider("Укажите время в днях от момента заказа до момента поставки (оставьте 1 при ежедневных поставках", 0.00, 20.00, 1.00, 0.01)
+lead_time_for_replenishment = st.slider("Укажите время в днях от момента заказа до момента поставки (оставьте 1 при ежедневных поставках)", 0.00, 20.00, 1.00, 0.01)
 demand_variation = st.slider("Какова ваш коэффициент вариабельности спроса в процентах", 0, 100, 0, 2)
 leadtime_variation = st.slider("Какова ваш коэффициент вариабельности срока поставки (от заказа до поставки) в процентах", 0, 100, 0, 2)
 optimum_inventory_level_days = lead_time_for_replenishment * (1 + ((demand_variation / 100) * (leadtime_variation / 100)))
