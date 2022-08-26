@@ -80,6 +80,6 @@ st.markdown('''<img src="https://i.ibb.co/HGwb7jb/order-level-illustration.png">
 #st.area_chart(x=range(30), y=demand_random_generator, width=0, height=0, use_container_width=True)
 
 df = pd.DataFrame(demand_random_generator, columns=['demand'], index=range(30))
-df = pd.concat([df, leadtime_random_generator])
+df['lead_time'] = leadtime_random_generator
 
 st.table(data=df)
