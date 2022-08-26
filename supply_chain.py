@@ -61,7 +61,7 @@ st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
 fig = px.line(y=leadtime_random_generator, title='Сгенерированный случайный срок от заказа до поставки на основании введенных данных')
 st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
 
-st.markdown('''<img src="http://kaizen-lms.ru/order_level_illustration.png">''', unsafe_allow_html=True)
+st.markdown('''<img src="https://i.ibb.co/HGwb7jb/order-level-illustration.png">''', unsafe_allow_html=True)
 st.markdown('''<a href="http://kaizen-consult.ru/"><img src='http://kaizen-lms.ru/order_level_illustration.png' style="width: 50%; margin-left: 25%; margin-right: 25%; text-align: center;"></a><p>''', unsafe_allow_html=True)
 
 #st.area_chart(x=range(30), y=demand_random_generator, width=0, height=0, use_container_width=True)
