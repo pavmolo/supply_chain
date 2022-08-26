@@ -13,7 +13,8 @@ order_in_process = st.number_input("Установите ранее сделан
 stock_level = current_stock + order_in_process
 
 
-st.subheader(f"Уровень заказа: {stock_level} штук")
+#st.subheader(f"Уровень заказа: {stock_level} штук")
+st.metric("Уровень заказа", f"{stock_level} штук")
 
 sales_3m = st.number_input("Укажите продажи за последние три месяца, руб.", value=0)
 
