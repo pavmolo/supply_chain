@@ -89,6 +89,7 @@ stocks = []
 stock_plus_order = []
 current_stock_dinamic = current_stock
 order_in_process_dinamic = order_in_process
+neded_order_dinamic = neded_order
 for i in df['consumption']:
   stock_plus_order_dinamic = current_stock_dinamic + i + neded_order_dinamic
   stock_level_dinamic = current_stock_dinamic + order_in_process_dinamic
