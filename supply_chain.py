@@ -40,8 +40,8 @@ st.subheader(f"Страховой запас (в днях): {safety_stock_days} 
 st.subheader(f"Страховой запас (в штуках): {safety_stock_pieces} штук")
 
 col1, col2 = st.columns(2)
-col1.metric("Оптимальный уровень запаса (в днях)", f"{numpy.around(optimum_inventory_level_days, decimals=2, out=None)} дней")
-col2.metric("Оптимальный уровень запаса (в штуках)", f"{numpy.around(optimum_inventory_level_pieces, decimals=2, out=None)} штук")
+col1.metric("Оптимальный уровень запаса (в днях)", f"{np.around(optimum_inventory_level_days, decimals=2, out=None)} дней")
+col2.metric("Оптимальный уровень запаса (в штуках)", f"{np.around(optimum_inventory_level_pieces, decimals=2, out=None)} штук")
 
 col1, col2 = st.columns(2)
 col1.metric("Страховой запас (в днях)", f"{safety_stock_days} дней")
