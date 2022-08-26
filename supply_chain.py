@@ -91,7 +91,7 @@ for i in df['consumption']:
   if neded_order_dinamic < 0:
     neded_order_dinamic = 0
   orders.append(neded_order_dinamic)
-  current_stock_dinamic = current_stock_dinamic + orders
+  current_stock_dinamic = current_stock_dinamic + neded_order_dinamic - i
     
 df['orders'] = orders
 st.table(data=df)
