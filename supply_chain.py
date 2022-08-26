@@ -119,5 +119,5 @@ fig.add_trace(go.Scatter(x=df.index, y=df['reorder_level'], name='Точка з�
 st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
 
 
-#st.table(data=df)
+st.table(data=df)
 
