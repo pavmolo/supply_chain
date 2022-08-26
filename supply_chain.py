@@ -33,9 +33,9 @@ lead_time_for_replenishment = st.number_input("Укажите время в дн
 demand_variation = st.slider("Какова ваш коэффициент вариабельности спроса в процентах", 0, 100, 0, 2)
 leadtime_variation = st.slider("Какова ваш коэффициент вариабельности срока поставки (от заказа до поставки) в процентах", 0, 100, 0, 2)
 optimum_inventory_level_days = lead_time_for_replenishment * (1 + ((demand_variation / 100) * (leadtime_variation / 100)))
-optimum_inventory_level_pieces = optimum_inventory_level_days * average_day_sales
+reorder_level = optimum_inventory_level_days * average_day_sales
 safety_stock_days = optimum_inventory_level_days - lead_time_for_replenishment
-reorder_level = safety_stock_days * average_day_sales
+safety_stock_pieces = safety_stock_days * average_day_sales
 
 sigma_demand = (demand_variation / 100) * average_day_sales
 sigma_leadtime = (leadtime_variation / 100) * lead_time_for_replenishment
@@ -51,7 +51,7 @@ col2.metric("Оптимальный уровень запаса (в штуках
 
 col1, col2 = st.columns(2)
 col1.metric("Страховой запас (в днях)", f"{np.around(safety_stock_days, decimals=2, out=None)} дней")
-col2.metric("Страховой запас (в штуках)", f"{np.around(reorder_level, decimals=2, out=None)} штук")
+col2.metric("Страховой запас (в штуках)", f"{np.around(safety_stock_pieces, decimals=2, out=None)} штук")
 st.caption('Страховой запас - это надбавка к необходимому для хранения запасу с целью застраховать от дефицита из-ща двух причин: задержек поставки и всплексков спроса')
 
 
