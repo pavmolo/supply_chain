@@ -107,7 +107,7 @@ st.info(f"Страхового запаса не зватило в {quant_defici
 st.area_chart(df['stocks'])
 
 fig = go.Figure()
-fig.add_trace(go.Scatter(x=df.index, y=df['stocks'], fill='tozeroy'))
+fig.add_trace(go.Scatter(x=df.index, y=df['stocks'], fill='tozeroy'), name='Запас перед поставкой')
 fig.add_trace(go.Scatter(x=df.index, y=df['safety_stocks']))
 fig.add_trace(go.Scatter(x=df.index, y=df['reorder_level']))
 st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
