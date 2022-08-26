@@ -84,6 +84,7 @@ df['lead_time'] = leadtime_random_generator
 df['consumption'] = df['lead_time'] * df['demand']
 orders = []
 stocks = []
+stock_plus_order = []
 current_stock_dinamic = current_stock
 order_in_process_dinamic = order_in_process
 for i in df['consumption']:
@@ -94,11 +95,14 @@ for i in df['consumption']:
   orders.append(neded_order_dinamic)
   stocks.append(current_stock_dinamic)
   current_stock_dinamic = current_stock_dinamic + neded_order_dinamic - i
+  stock_plus_order_dinamic = current_stock_dinamic - i
+  stock_plus_order.append(stock_plus_order_dinamic)
     
 df['orders'] = orders
 df['stocks'] = stocks
 df['safety_stocks'] = safety_stock_pieces
 df['reorder_level'] = reorder_level
+df['stock_level_before_replenishment'] = stock_plus_order
 
 st.subheader("Имитационное моделирование объема запаса / дефицита")
 quant_deficit = (df['stocks'] < 0).sum()
@@ -108,8 +112,10 @@ st.area_chart(df['stocks'])
 
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=df.index, y=df['stocks'], fill='tozeroy', name='Запас перед поставкой'))
-fig.add_trace(go.Scatter(x=df.index, y=df['safety_stocks']))
-fig.add_trace(go.Scatter(x=df.index, y=df['reorder_level']))
+fig.add_trace(go.Scatter(x=df.index, y=df['stock_level_before_replenishment'], fill='tozeroy', name='Уровень запаса перед пополнением'))
+fig.add_trace(go.Scatter(x=df.index, y=df['safety_stocks'], name='Страховой запас'))
+fig.add_trace(go.Scatter(x=df.index, y=df['reorder_level'], name='Точка заказа'))
+
 st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
 
 
