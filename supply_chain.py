@@ -95,7 +95,7 @@ for i in df['consumption']:
   orders.append(neded_order_dinamic)
   stocks.append(current_stock_dinamic)
   current_stock_dinamic = current_stock_dinamic + neded_order_dinamic - i
-  stock_plus_order_dinamic = current_stock_dinamic - i
+  stock_plus_order_dinamic = current_stock_dinamic + i
   stock_plus_order.append(stock_plus_order_dinamic)
     
 df['orders'] = orders
