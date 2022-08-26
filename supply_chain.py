@@ -44,8 +44,8 @@ col1.metric("Оптимальный уровень запаса (в днях)", 
 col2.metric("Оптимальный уровень запаса (в штуках)", f"{np.around(optimum_inventory_level_pieces, decimals=2, out=None)} штук")
 
 col1, col2 = st.columns(2)
-col1.metric("Страховой запас (в днях)", f"{safety_stock_days} дней")
-col2.metric("Страховой запас (в штуках)", f"{safety_stock_pieces} штук")
+col1.metric("Страховой запас (в днях)", f"{np.around(safety_stock_days, decimals=2, out=None)} дней")
+col2.metric("Страховой запас (в штуках)", f"{np.around(safety_stock_pieces, decimals=2, out=None)} штук")
 
 demand_random_generator = [random.normalvariate(average_day_sales, sigma_demand) for x in range(30)]
 #st.subheader(f"Колебания спроса: {demand_random_generator} дней")
