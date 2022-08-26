@@ -51,6 +51,9 @@ col1, col2 = st.columns(2)
 col1.metric("Страховой запас (в днях)", f"{np.around(safety_stock_days, decimals=2, out=None)} дней")
 col2.metric("Страховой запас (в штуках)", f"{np.around(safety_stock_pieces, decimals=2, out=None)} штук")
 
+st.metric("Уровень (точка) заказа", f"{np.around(optimum_inventory_level_pieces, decimals=2, out=None)} штук")
+st.caption('Точка заказа - это объем запаса, при котором необходимо сделать заказ, чтобы времени хватило до исчерпания запаса к моменту попонения с учетом рисков задержек поставки и изменений спроса')
+
 demand_random_generator = [random.normalvariate(average_day_sales, sigma_demand) for x in range(30)]
 #st.subheader(f"Колебания спроса: {demand_random_generator} дней")
 leadtime_random_generator = [random.normalvariate(lead_time_for_replenishment, sigma_leadtime) for x in range(30)]
