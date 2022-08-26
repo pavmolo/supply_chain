@@ -99,6 +99,8 @@ for i in range(30):
   number_x_minus = i * 100 + 99
   numbers_minus.append(number_x_minus)
   stock_fact_dinamic_minus = stock_fact_dinamic_plus - df['consumption'][i]
+  if stock_fact_dinamic_minus < 0:
+    stock_fact_dinamic_minus = 0
   stock_fact_minus.append(stock_fact_dinamic_minus)
   
   # Определяем фактический запас сразу после пополнения
