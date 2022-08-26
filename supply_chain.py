@@ -9,9 +9,9 @@ import random
 with st.sidebar:
   st.title('Введите данные для моделирования элемента цепочки поставок (конкретного SKU)')
   st.subheader("Параметры для расчета уровня запаса")
-  current_stock = st.number_input("Установите текущий уровень запаса в штуках", value=0)
+  current_stock = st.number_input("Укажите фактический остаток в месте хранения в штуках", value=0)
 
-  order_in_process = st.number_input("Установите ранее сделанные, но не выполенные заказы", value=0)
+  order_in_process = st.number_input("Установите ранее сделанные, но не выполенные заказы на поставку в место хранения", value=0)
 
   stock_level = current_stock + order_in_process
   st.subheader("Параметры для расчета точки заказа:")
