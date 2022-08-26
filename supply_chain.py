@@ -34,10 +34,10 @@ safety_stock_pieces = safety_stock_days * average_day_sales
 sigma_demand = (demand_variation / 100) * average_day_sales
 sigma_leadtime = (leadtime_variation / 100) * lead_time_for_replenishment
 
-st.subheader(f"Оптимальный уровень запаса (в днях): {optimum_inventory_level_days} дней")
-st.subheader(f"Оптимальный уровень запаса (в штуках): {optimum_inventory_level_pieces} штук")
-st.subheader(f"Страховой запас (в днях): {safety_stock_days} дней")
-st.subheader(f"Страховой запас (в штуках): {safety_stock_pieces} штук")
+#st.subheader(f"Оптимальный уровень запаса (в днях): {optimum_inventory_level_days} дней")
+#st.subheader(f"Оптимальный уровень запаса (в штуках): {optimum_inventory_level_pieces} штук")
+#st.subheader(f"Страховой запас (в днях): {safety_stock_days} дней")
+#st.subheader(f"Страховой запас (в штуках): {safety_stock_pieces} штук")
 
 col1, col2 = st.columns(2)
 col1.metric("Оптимальный уровень запаса (в днях)", f"{np.around(optimum_inventory_level_days, decimals=2, out=None)} дней")
