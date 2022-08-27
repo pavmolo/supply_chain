@@ -100,31 +100,31 @@ for i in range(30):
   numbers_minus.append(number_x_minus)
   stock_fact_dinamic_minus = stock_fact_dinamic_plus - df['consumption'][i]
   stock_fact_minus.append(stock_fact_dinamic_minus)
-  
+
   # Определяем фактический запас сразу после пополнения
   number_x_plus = i * 100 + 101
   numbers_plus.append(number_x_plus)
   stock_fact_dinamic_plus = stock_fact_dinamic_minus + neded_order_dinamic
   stock_fact_plus.append(stock_fact_dinamic_plus)
-  
+
   # Делаем заказ
   neded_order_dinamic = reorder_level - stock_fact_dinamic_minus
   if neded_order_dinamic < 0:
     neded_order_dinamic = 0
   orders.append(neded_order_dinamic)
   stocks.append(stock_fact_dinamic_minus)
-  
-    
+
+
 df['orders'] = orders
 df['stocks'] = stocks
 df['safety_stocks'] = safety_stock_pieces
 df['reorder_level'] = reorder_level
 
-df_minus = pd.DataFrame(stock_fact_minus, index = numbers_minus, columns = ['fact_stock'])
-st.table(data=df_minus)
+#df_minus = pd.DataFrame(stock_fact_minus, index = numbers_minus, columns = ['fact_stock'])
+#st.table(data=df_minus)
 
-df_plus = pd.DataFrame(stock_fact_plus,index = numbers_plus, columns = ['fact_stock'])
-st.table(data=df_plus)
+#df_plus = pd.DataFrame(stock_fact_plus,index = numbers_plus, columns = ['fact_stock'])
+#st.table(data=df_plus)
 
 st.subheader("Имитационное моделирование объема запаса / дефицита")
 quant_deficit = (df['stocks'] < 0).sum()
@@ -142,4 +142,3 @@ st.plotly_chart(fig, use_container_width=False, sharing="streamlit")
 
 
 st.table(data=df)
-
