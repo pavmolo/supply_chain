@@ -75,13 +75,7 @@ if neded_order < 0:
 else:
   st.metric("Необходимый заказ:", f"{np.around(neded_order, decimals=2, out=None)} шт")
 
-with st.expander("Сгенерированы случайные величины спроса и сроков поставки на основании показателей вариабельности, введенных вами. Нажмите сюда, чтобы посмотреть их"):
-  fig = px.line(y=demand_random_generator, title='Сгенерированный случайный спрос на основании введенных данных')
-  fig.update_yaxes(range=[0, max(demand_random_generator) * 1.05])
-  st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
-  fig = px.line(y=leadtime_random_generator, title='Сгенерированный случайный срок от заказа до поставки на основании введенных данных')
-  fig.update_yaxes(range=[0, max(leadtime_random_generator) * 1.05])
-  st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
+
 
 #st.area_chart(x=range(30), y=demand_random_generator, width=0, height=0, use_container_width=True)
 
@@ -103,6 +97,17 @@ df['fact_stock_after'][0] = current_stock + df['order_in_process'][0]
 df['fact_stock_before'][0] = df['fact_stock_after'][0] - df['consumption'][0]
 df = df[['demand', 'lead_time', 'after', 'before','safety_stock', 'reorder_level', 'orders', 'order_in_process', 
        'fact_stock_after', 'consumption', 'fact_stock_before']]
+
+with st.expander("Сгенерированы случайные величины спроса и сроков поставки на основании показателей вариабельности, введенных вами. Нажмите сюда, чтобы посмотреть их"):
+  fig = go.Figure()
+  fig.add_trace(go.Scatter(x=df.index , y=df['consumption'], fill='tozeroy', name='Случайная величина спроса'))
+  fig.add_trace(go.Scatter(x=df.index, y=[df['consumption'].mean()] * df['consumption'].count(), name='Средняя величина спроса'))
+  fig.update(title='Сгенерированный случайный спрос на основании введенных данных')
+  fig.update_yaxes(range=[0, max(demand_random_generator) * 1.05])
+  st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
+  fig = px.line(y=leadtime_random_generator, title='Сгенерированный случайный срок от заказа до поставки на основании введенных данных')
+  fig.update_yaxes(range=[0, max(leadtime_random_generator) * 1.05])
+  st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
 
 for i in range(1, 30):
   df['order_in_process'][i] = df['orders'][i-1]
