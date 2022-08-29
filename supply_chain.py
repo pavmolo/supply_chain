@@ -99,10 +99,11 @@ df = df[['demand', 'lead_time', 'after', 'before','safety_stock', 'reorder_level
        'fact_stock_after', 'consumption', 'fact_stock_before']]
 
 with st.expander("Сгенерированы случайные величины спроса и сроков поставки на основании показателей вариабельности, введенных вами. Нажмите сюда, чтобы посмотреть их"):
-  fig = go.Figure(layout=go.Layout(title=go.layout.Title(text="Сгенерированный случайный спрос на основании введенных данных"))
+  fig = go.Figure()
   fig.add_trace(go.Scatter(x=df.index , y=df['consumption'], fill='tozeroy', name='Случайная величина спроса'))
   fig.add_trace(go.Scatter(x=df.index, y=[df['consumption'].mean()] * df['consumption'].count(), name='Средняя величина спроса'))
   fig.update_yaxes(range=[0, max(demand_random_generator) * 1.05])
+  fig.update_layout(title="Сгенерированный случайный спрос на основании введенных данных")
   st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
   fig = px.line(y=leadtime_random_generator, title='Сгенерированный случайный срок от заказа до поставки на основании введенных данных')
   fig.update_yaxes(range=[0, max(leadtime_random_generator) * 1.05])
