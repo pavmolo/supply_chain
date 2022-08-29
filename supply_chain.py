@@ -116,4 +116,4 @@ fig.add_trace(go.Scatter(x=fact_stock['step'], y=fact_stock['fact_stock'], fill=
 fig.add_trace(go.Scatter(x=fact_stock['step'], y=fact_stock['Точка заказа'], name='Точка заказа'))
 fig.add_trace(go.Scatter(x=fact_stock['step'], y=fact_stock['Страховой запас'], name='Страховой запас'))
 fig.update_layout(width=1000)
-st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
+st.plotly_chart(fig, use_container_width=False, sharing="streamlit")
