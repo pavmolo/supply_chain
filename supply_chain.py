@@ -108,7 +108,11 @@ after = df[['after', 'fact_stock_after']]
 after.columns = ['step', 'fact_stock']
 fact_stock = pd.concat([after, before])
 fact_stock = fact_stock.sort_values('step', axis=0, ascending=True)
+fact_stock['Точка заказа'] = reorder_level
+fact_stock['Страховой запас'] = safety_stock_pieces
 
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=fact_stock['step'], y=fact_stock['fact_stock'], fill='tozeroy', name='Объема запаса в точке хранения'))
+fig.add_trace(go.Scatter(x=fact_stock['step'], y=fact_stock['Точка заказа'], name='Точка заказа'))
+fig.add_trace(go.Scatter(x=fact_stock['step'], y=fact_stock['Страховой запас'], name='Страховой запас'))
 st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
