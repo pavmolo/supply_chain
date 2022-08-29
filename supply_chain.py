@@ -22,6 +22,7 @@ with st.sidebar:
   st.title('Параметры для расчета страхового запаса:')
   demand_variation = st.slider("Каков ваш коэффициент вариабельности спроса в процентах", 0, 100, 18, 2)
   leadtime_variation = st.slider("Каков ваш коэффициент вариабельности срока поставки (от заказа до поставки) в процентах", 0, 100, 8, 2)
+  safety_multiplicator = st.slider("На сколько изменить страховой запас для избежания дефицита: ", 0, 3, 1, 0.01)
 
 st.title('Приложение по моделированию принятия решения элементом цепочки поставок при ежедневных поставках')
 #st.subheader(f"Уровень запаса: {stock_level} штук")
@@ -35,11 +36,12 @@ average_day_sales_rounded = np.around(average_day_sales, decimals=2, out=None)
 #st.subheader(f"Среднедневные продажи за последние три месяца: {average_day_sales} руб. в день")
 st.metric("Среднедневные продажи за последние три месяца", f"{average_day_sales_rounded} шт в день")
 
-
-optimum_inventory_level_days = lead_time_for_replenishment * (1 + demand_variation / 100) * (1 + leadtime_variation / 100)
-reorder_level = optimum_inventory_level_days * average_day_sales
-safety_stock_days = optimum_inventory_level_days - lead_time_for_replenishment
+safety_stock_days = lead_time_for_replenishment * ((1 + demand_variation / 100) * (1 + leadtime_variation / 100) - 1) * safety_multiplicator
 safety_stock_pieces = safety_stock_days * average_day_sales
+optimum_inventory_level_days = lead_time_for_replenishment + safety_stock_days
+reorder_level = optimum_inventory_level_days * average_day_sales
+
+
 
 sigma_demand = (demand_variation / 100) * average_day_sales
 sigma_leadtime = (leadtime_variation / 100) * lead_time_for_replenishment
