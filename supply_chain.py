@@ -75,8 +75,10 @@ else:
 
 with st.expander("Сгенерированы случайные величины спроса и сроков поставки на основании показателей вариабельности, введенных вами. Нажмите сюда, чтобы посмотреть их"):
   fig = px.line(y=demand_random_generator, title='Сгенерированный случайный спрос на основании введенных данных')
+  fig.update_yaxes(range=[0, max(demand_random_generator) * 1.05])
   st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
   fig = px.line(y=leadtime_random_generator, title='Сгенерированный случайный срок от заказа до поставки на основании введенных данных')
+  fig.update_yaxes(range=[0, max(leadtime_random_generator) * 1.05])
   st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
   st.markdown('''<img src="https://i.ibb.co/HGwb7jb/order-level-illustration.png">''', unsafe_allow_html=True)
 
