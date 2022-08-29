@@ -80,7 +80,6 @@ with st.expander("Сгенерированы случайные величины
   fig = px.line(y=leadtime_random_generator, title='Сгенерированный случайный срок от заказа до поставки на основании введенных данных')
   fig.update_yaxes(range=[0, max(leadtime_random_generator) * 1.05])
   st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
-  st.markdown('''<img src="https://i.ibb.co/HGwb7jb/order-level-illustration.png">''', unsafe_allow_html=True)
 
 #st.area_chart(x=range(30), y=demand_random_generator, width=0, height=0, use_container_width=True)
 
@@ -134,3 +133,6 @@ st.plotly_chart(fig, use_container_width=False, sharing="streamlit")
 mean_stock = fact_stock['fact_stock'].mean()
 st.metric("Средний уровень запаса при моделировании", f"{np.around(mean_stock, decimals=2, out=None)} штук")
 st.metric("Рассчетный уровень запаса", f"{np.around(safety_stock_pieces + ((reorder_level - safety_stock_pieces) / 2), decimals=2, out=None)} штук")
+
+with st.expander("Справка по интерпретации графика 'Пилы'"):
+  st.markdown('''<img src="https://i.ibb.co/HGwb7jb/order-level-illustration.png">''', unsafe_allow_html=True)
