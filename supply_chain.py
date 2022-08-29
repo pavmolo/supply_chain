@@ -81,7 +81,7 @@ with st.expander("Сгенерированы случайные величины
   st.markdown('''<img src="https://i.ibb.co/HGwb7jb/order-level-illustration.png">''', unsafe_allow_html=True)
 
 #st.area_chart(x=range(30), y=demand_random_generator, width=0, height=0, use_container_width=True)
-@st.cache(persist=True)
+@st.cache(func=all_in_one)
 def all_in_one():
   df = pd.DataFrame(demand_random_generator, columns=['demand'], index=range(30))
   df['lead_time'] = leadtime_random_generator
