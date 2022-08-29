@@ -69,7 +69,7 @@ leadtime_random_generator = [random.normalvariate(lead_time_for_replenishment, s
 st.subheader("Расчет необходимого заказа")
 neded_order = reorder_level - stock_level
 if neded_order < 0:
-  st.error(f'Заказывать не нужно. До заказа нужно израсходовать {-neded_order} шт')
+  st.error(f'Заказывать не нужно. До заказа нужно израсходовать {np.around(-neded_order, decimals=0, out=None)} шт')
 else:
   st.metric("Необходимый заказ:", f"{np.around(neded_order, decimals=2, out=None)} шт")
 
