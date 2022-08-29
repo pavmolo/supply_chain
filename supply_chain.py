@@ -117,3 +117,6 @@ fig.add_trace(go.Scatter(x=fact_stock['step'], y=fact_stock['Точка зака
 fig.add_trace(go.Scatter(x=fact_stock['step'], y=fact_stock['Страховой запас'], name='Страховой запас'))
 fig.update_layout(width=1000)
 st.plotly_chart(fig, use_container_width=False, sharing="streamlit")
+
+mean_stock = fact_stock['fact_stock'].mean()
+st.metric("Средний уровень запаса при моделировании", f"{np.around(mean_stock, decimals=2, out=None)} штук")
