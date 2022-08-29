@@ -100,19 +100,18 @@ df = df[['demand', 'lead_time', 'after', 'before','safety_stock', 'reorder_level
 
 with st.expander("Сгенерированы случайные величины спроса и сроков поставки на основании показателей вариабельности, введенных вами. Нажмите сюда, чтобы посмотреть их"):
   
+  st.caption('Сгенерированный случайный спрос на основании введенных данных')
   fig = go.Figure()
   fig.add_trace(go.Scatter(x=df.index , y=df['consumption'], name='Случайная величина спроса'))
   fig.add_trace(go.Scatter(x=df.index, y=[df['consumption'].mean()] * df['consumption'].count(), name='Средняя величина спроса'))
   fig.update_yaxes(range=[0, df['consumption'].max() * 1.05])
-  fig.update_layout(title="Сгенерированный случайный спрос на основании введенных данных")
+  st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
   
+  st.caption('Сгенерированный случайный срок от заказа до поставки на основании введенных данных')
   fig = go.Figure()
   fig.add_trace(go.Scatter(x=df.index , y=df['lead_time'], name='Случайная величина спроса'))
   fig.add_trace(go.Scatter(x=df.index, y=[df['lead_time'].mean()] * df['lead_time'].count(), name='Средняя величина спроса'))
   fig.update_yaxes(range=[0, df['lead_time'].max() * 1.05])
-  fig.update_layout(title="Сгенерированный случайный срок от заказа до поставки на основании введенных данных")
-  
-  st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
   st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
 
 for i in range(1, 30):
