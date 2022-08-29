@@ -120,3 +120,4 @@ st.plotly_chart(fig, use_container_width=False, sharing="streamlit")
 
 mean_stock = fact_stock['fact_stock'].mean()
 st.metric("Средний уровень запаса при моделировании", f"{np.around(mean_stock, decimals=2, out=None)} штук")
+st.metric("Рассчетный уровень запаса", f"{np.around(safety_stock_pieces + ((reorder_level - safety_stock_pieces) / 2), decimals=2, out=None)} штук")
