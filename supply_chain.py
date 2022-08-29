@@ -35,7 +35,7 @@ average_day_sales_rounded = np.around(average_day_sales, decimals=2, out=None)
 st.metric("Среднедневные продажи за последние три месяца", f"{average_day_sales_rounded} шт в день")
 
 
-optimum_inventory_level_days = lead_time_for_replenishment * (1 + demand_variation / 100) * ( 1 + leadtime_variation / 100)
+optimum_inventory_level_days = lead_time_for_replenishment * (1 + demand_variation / 100) * (1 + leadtime_variation / 100)
 reorder_level = optimum_inventory_level_days * average_day_sales
 safety_stock_days = optimum_inventory_level_days - lead_time_for_replenishment
 safety_stock_pieces = safety_stock_days * average_day_sales
@@ -84,61 +84,30 @@ with st.expander("Сгенерированы случайные величины
 df = pd.DataFrame(demand_random_generator, columns=['demand'], index=range(30))
 df['lead_time'] = leadtime_random_generator
 df['consumption'] = df['lead_time'] * df['demand']
-orders = []
-stocks = []
-stock_plus_order = []
-stock_fact_dinamic_plus = current_stock
-order_in_process_dinamic = order_in_process
-neded_order_dinamic = neded_order
-numbers_minus = []
-stock_fact_minus = []
-numbers_plus = []
-stock_fact_plus = []
-for i in range(30):
-  # Определяем фактический запас прямо перед пополнением
-  number_x_minus = i * 100 + 99
-  numbers_minus.append(number_x_minus)
-  stock_fact_dinamic_minus = stock_fact_dinamic_plus - df['consumption'][i]
-  stock_fact_minus.append(stock_fact_dinamic_minus)
+df['after'] = df.index * 100 + 1
+df['before'] = df.index * 100 + 99
+df['orders'] = 0
+df['order_in_process'] = 0
+df['fact_stock_after'] = 0
+df['fact_stock_before'] = 0
+df['order_in_process'][0] = order_in_process
+df['orders'][0] = reorder_level - current_stock
+df['fact_stock_after'][0] = current_stock + df['order_in_process'][0]
+df['fact_stock_before'][0] = df['fact_stock_after'][0] - df['consumption'][0]
 
-  # Определяем фактический запас сразу после пополнения
-  number_x_plus = i * 100 + 101
-  numbers_plus.append(number_x_plus)
-  stock_fact_dinamic_plus = stock_fact_dinamic_minus + neded_order_dinamic
-  stock_fact_plus.append(stock_fact_dinamic_plus)
+for i in range(1, 30):
+  df['order_in_process'][i] = df['orders'][i-1]
+  df['fact_stock_after'][i] = df['fact_stock_before'][i-1] + df['order_in_process'][i]
+  df['fact_stock_before'][i] = df['fact_stock_after'][i] - df['consumption'][i]
+  df['orders'][i] = reorder_level - df['fact_stock_before'][i-1]
 
-  # Делаем заказ
-  neded_order_dinamic = reorder_level - stock_fact_dinamic_minus
-  if neded_order_dinamic < 0:
-    neded_order_dinamic = 0
-  orders.append(neded_order_dinamic)
-  stocks.append(stock_fact_dinamic_minus)
-
-
-df['orders'] = orders
-df['stocks'] = stocks
-df['safety_stocks'] = safety_stock_pieces
-df['reorder_level'] = reorder_level
-
-#df_minus = pd.DataFrame(stock_fact_minus, index = numbers_minus, columns = ['fact_stock'])
-#st.table(data=df_minus)
-
-#df_plus = pd.DataFrame(stock_fact_plus,index = numbers_plus, columns = ['fact_stock'])
-#st.table(data=df_plus)
-
-st.subheader("Имитационное моделирование объема запаса / дефицита")
-quant_deficit = (df['stocks'] < 0).sum()
-st.info(f"Страхового запаса не хватило в {quant_deficit} днях из {df['stocks'].count()}")
-
-#st.area_chart(df['stocks'])
+before = df[['before', 'fact_stock_before']]
+before.columns = ['step', 'fact_stock']
+after = df[['after', 'fact_stock_after']]
+after.columns = ['step', 'fact_stock']
+fact_stock = pd.concat([after, before])
+fact_stock = fact_stock.sort_values('step', axis=0, ascending=True)
 
 fig = go.Figure()
-fig.add_trace(go.Scatter(x=df.index, y=df['stocks'], fill='tozeroy', name='Запас перед поставкой'))
-#fig.add_trace(go.Scatter(x=df.index, y=df['stock_level_before_replenishment'], fill='tozeroy', name='Уровень запаса перед пополнением'))
-fig.add_trace(go.Scatter(x=df.index, y=df['safety_stocks'], name='Страховой запас'))
-fig.add_trace(go.Scatter(x=df.index, y=df['reorder_level'], name='Точка заказа'))
-fig.update_layout(width=800)
-st.plotly_chart(fig, use_container_width=False, sharing="streamlit")
-
-
-st.table(data=df)
+fig.add_trace(go.Scatter(x=fact_stock['step'], y=fact_stock['fact_stock'], fill='tozeroy', name='Объема запаса в точке хранения'))
+st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
