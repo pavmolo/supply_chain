@@ -20,7 +20,7 @@ with st.sidebar:
   lead_time_for_replenishment = 1
   st.subheader(f"Регулярность поставок: {lead_time_for_replenishment} день")
   st.title('Параметры для расчета страхового запаса:')
-  demand_variation = st.slider("Каков ваш коэффициент вариабельности спроса в процентах", 0, 100, 18, 2)
+  demand_variation = st.slider("Каков ваш коэффициент вариабельности спроса в процентах", 0.0, 100.0, 18.0, 0.5)
   leadtime_variation = st.slider("Каков ваш коэффициент вариабельности срока поставки (от заказа до поставки) в процентах", 0, 100, 8, 2)
   safety_multiplicator = st.slider("На сколько изменить страховой запас для избежания дефицита: ", 0.00, 3.00, 1.00, 0.01)
 
