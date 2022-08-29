@@ -110,8 +110,9 @@ def all_in_one():
   fact_stock = fact_stock.sort_values('step', axis=0, ascending=True)
   fact_stock['Точка заказа'] = reorder_level
   fact_stock['Страховой запас'] = safety_stock_pieces
-  return df
-df = all_in_one()
+  return df, fact_stock
+df = all_in_one()[0]
+fact_stock = all_in_one()[1]
 st.subheader("Моделирование 30 дней")
 st.info(f"Страхового запаса не зватило (возник дефицит) в {(df['fact_stock_before'] < 0).sum()} случаях из {len(df)}")
 fig = go.Figure()
