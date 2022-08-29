@@ -82,38 +82,44 @@ with st.expander("Сгенерированы случайные величины
 
 #st.area_chart(x=range(30), y=demand_random_generator, width=0, height=0, use_container_width=True)
 
-def all_in_one():
-  df = pd.DataFrame(demand_random_generator, columns=['demand'], index=range(30))
-  df['lead_time'] = leadtime_random_generator
-  df['consumption'] = df['lead_time'] * df['demand']
-  df['after'] = df.index * 100 + 1
-  df['before'] = df.index * 100 + 99
-  df['orders'] = 0
-  df['order_in_process'] = 0
-  df['fact_stock_after'] = 0
-  df['fact_stock_before'] = 0
-  df['order_in_process'][0] = order_in_process
-  df['orders'][0] = reorder_level - current_stock
-  df['fact_stock_after'][0] = current_stock + df['order_in_process'][0]
-  df['fact_stock_before'][0] = df['fact_stock_after'][0] - df['consumption'][0]
 
-  for i in range(1, 30):
-    df['order_in_process'][i] = df['orders'][i-1]
-    df['fact_stock_after'][i] = df['fact_stock_before'][i-1] + df['order_in_process'][i]
-    df['fact_stock_before'][i] = df['fact_stock_after'][i] - df['consumption'][i]
-    df['orders'][i] = reorder_level - df['fact_stock_before'][i-1]
+df = pd.DataFrame(demand_random_generator, columns=['demand'], index=range(30))
+df['lead_time'] = leadtime_random_generator
+df['consumption'] = df['lead_time'] * df['demand']
+df['after'] = df.index * 100 + 1
+df['before'] = df.index * 100 + 99
+df['orders'] = 0
+df['order_in_process'] = 0
+df['fact_stock_after'] = 0
+df['fact_stock_before'] = 0
+df['reorder_level'] = np.around(reorder_level, decimals=0, out=None)
+df['safety_stock'] =  np.around(safety_stock_pieces, decimals=0, out=None)
+df['order_in_process'][0] = order_in_process
+df['orders'][0] = reorder_level - current_stock
+df['fact_stock_after'][0] = current_stock + df['order_in_process'][0]
+df['fact_stock_before'][0] = df['fact_stock_after'][0] - df['consumption'][0]
+df = df[['demand', 'lead_time', 'after', 'before','safety_stock', 'reorder_level', 'orders', 'order_in_process', 
+       'fact_stock_after', 'consumption', 'fact_stock_before']]
 
-  before = df[['before', 'fact_stock_before']]
-  before.columns = ['step', 'fact_stock']
-  after = df[['after', 'fact_stock_after']]
-  after.columns = ['step', 'fact_stock']
-  fact_stock = pd.concat([after, before])
-  fact_stock = fact_stock.sort_values('step', axis=0, ascending=True)
-  fact_stock['Точка заказа'] = reorder_level
-  fact_stock['Страховой запас'] = safety_stock_pieces
-  return df, fact_stock
-df = all_in_one()[0]
-fact_stock = all_in_one()[1]
+for i in range(1, 30):
+  df['order_in_process'][i] = df['orders'][i-1]
+  df['fact_stock_after'][i] = df['fact_stock_before'][i-1] + df['order_in_process'][i]
+  df['fact_stock_before'][i] = df['fact_stock_after'][i] - df['consumption'][i]
+  if df['fact_stock_before'][i] < 0:
+    df['fact_stock_before'][i] = 0
+  df['orders'][i] = reorder_level - df['fact_stock_before'][i-1]
+  if df['orders'][i] < 0:
+    df['orders'][i] = 0
+
+before = df[['before', 'fact_stock_before']]
+before.columns = ['step', 'fact_stock']
+after = df[['after', 'fact_stock_after']]
+after.columns = ['step', 'fact_stock']
+fact_stock = pd.concat([after, before])
+fact_stock = fact_stock.sort_values('step', axis=0, ascending=True)
+fact_stock['Точка заказа'] = reorder_level
+fact_stock['Страховой запас'] = safety_stock_pieces
+
 st.subheader("Моделирование 30 дней")
 st.info(f"Страхового запаса не зватило (возник дефицит) в {(df['fact_stock_before'] < 0).sum()} случаях из {len(df)}")
 fig = go.Figure()
