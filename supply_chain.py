@@ -125,14 +125,13 @@ st.subheader("Моделирование 30 дней")
 st.info(f"Страхового запаса не зватило (возник дефицит) в {(df['fact_stock_before'] == 0).sum()} случаях из {len(df)}")
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=fact_stock['step'], y=fact_stock['fact_stock'], fill='tozeroy', name='Объема запаса в точке хранения'))
-fig.add_trace(go.Scatter(x=fact_stock['step'], y=fact_stock['Точка заказа'], name='Точка заказа'))
 fig.add_trace(go.Scatter(x=fact_stock['step'], y=fact_stock['Страховой запас'], name='Страховой запас'))
+fig.add_trace(go.Scatter(x=fact_stock['step'], y=fact_stock['Точка заказа'], name='Точка заказа'))
 fig.update_layout(width=1000)
 st.plotly_chart(fig, use_container_width=False, sharing="streamlit")
+with st.expander("Справка по интерпретации графика 'Пилы'"):
+  st.markdown('''<img src="https://i.ibb.co/HGwb7jb/order-level-illustration.png">''', unsafe_allow_html=True)
 
 mean_stock = fact_stock['fact_stock'].mean()
 st.metric("Средний уровень запаса при моделировании", f"{np.around(mean_stock, decimals=2, out=None)} штук")
 st.metric("Рассчетный уровень запаса", f"{np.around(safety_stock_pieces + ((reorder_level - safety_stock_pieces) / 2), decimals=2, out=None)} штук")
-
-with st.expander("Справка по интерпретации графика 'Пилы'"):
-  st.markdown('''<img src="https://i.ibb.co/HGwb7jb/order-level-illustration.png">''', unsafe_allow_html=True)
