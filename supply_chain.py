@@ -102,18 +102,18 @@ df = df[['demand', 'lead_time', 'after', 'before','safety_stock', 'reorder_level
 with st.expander("Сгенерированы случайные величины спроса и сроков поставки на основании показателей вариабельности, введенных вами. Нажмите сюда, чтобы посмотреть их"):
   
   st.subheader('Сгенерированный случайный спрос на основании введенных данных')
-  fig = go.Figure()
-  fig.add_trace(go.Scatter(x=df.index , y=df['consumption'], name='Случайная величина спроса'))
-  fig.add_trace(go.Scatter(x=df.index, y=[df['consumption'].mean()] * df['consumption'].count(), name='Средняя величина спроса'))
-  fig.update_yaxes(range=[0, df['consumption'].max() * 1.05])
-  st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
+  fig_2 = go.Figure()
+  fig_2.add_trace(go.Scatter(x=df.index , y=df['consumption'], name='Случайная величина спроса'))
+  fig_2.add_trace(go.Scatter(x=df.index, y=[df['consumption'].mean()] * df['consumption'].count(), name='Средняя величина спроса'))
+  fig_2.update_yaxes(range=[0, df['consumption'].max() * 1.05])
+  st.plotly_chart(fig_2, use_container_width=True, sharing="streamlit")
   
   st.subheader('Сгенерированный случайный срок от заказа до поставки на основании введенных данных')
-  fig = go.Figure()
-  fig.add_trace(go.Scatter(x=df.index , y=df['lead_time'], name='Случайная величина спроса'))
-  fig.add_trace(go.Scatter(x=df.index, y=[df['lead_time'].mean()] * df['lead_time'].count(), name='Средняя величина спроса'))
-  fig.update_yaxes(range=[0, df['lead_time'].max() * 1.05])
-  st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
+  fig_3 = go.Figure()
+  fig_3.add_trace(go.Scatter(x=df.index , y=df['lead_time'], name='Случайная величина спроса'))
+  fig_3.add_trace(go.Scatter(x=df.index, y=[df['lead_time'].mean()] * df['lead_time'].count(), name='Средняя величина спроса'))
+  fig_3.update_yaxes(range=[0, df['lead_time'].max() * 1.05])
+  st.plotly_chart(fig_3, use_container_width=True, sharing="streamlit")
 
 for i in range(1, 30):
   df['order_in_process'][i] = df['orders'][i-1]
@@ -136,12 +136,12 @@ fact_stock['Страховой запас'] = safety_stock_pieces
 
 st.subheader("Моделирование 30 дней")
 st.info(f"Страхового запаса не зватило (возник дефицит) в {(df['fact_stock_before'] == 0).sum()} случаях из {len(df)}")
-fig = go.Figure()
-fig.add_trace(go.Scatter(x=fact_stock['step'], y=fact_stock['fact_stock'], fill='tozeroy', name='Объема запаса в точке хранения'))
-fig.add_trace(go.Scatter(x=fact_stock['step'], y=fact_stock['Страховой запас'], name='Страховой запас'))
-fig.add_trace(go.Scatter(x=fact_stock['step'], y=fact_stock['Точка заказа'], name='Точка заказа'))
-fig.update_layout(width=1000)
-st.plotly_chart(fig, use_container_width=False, sharing="streamlit")
+fig_4 = go.Figure()
+fig_4.add_trace(go.Scatter(x=fact_stock['step'], y=fact_stock['fact_stock'], fill='tozeroy', name='Объема запаса в точке хранения'))
+fig_4.add_trace(go.Scatter(x=fact_stock['step'], y=fact_stock['Страховой запас'], name='Страховой запас'))
+fig_4.add_trace(go.Scatter(x=fact_stock['step'], y=fact_stock['Точка заказа'], name='Точка заказа'))
+fig_4.update_layout(width=1000)
+st.plotly_chart(fig_4, use_container_width=False, sharing="streamlit")
 with st.expander("Справка по интерпретации графика 'Пилы'"):
   st.markdown('''<img src="https://i.ibb.co/HGwb7jb/order-level-illustration.png">''', unsafe_allow_html=True)
 
