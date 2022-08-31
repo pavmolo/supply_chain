@@ -105,7 +105,7 @@ with st.expander("Сгенерированы случайные величины
   fig_2 = go.Figure()
   fig_2.add_trace(go.Scatter(x=df.index , y=df['demand'], name='Случайная величина спроса'))
   fig_2.add_trace(go.Scatter(x=df.index, y=[df['demand'].mean()] * df['demand'].count(), name='Средняя величина спроса'))
-  fig_2.update_yaxes(range=[0, df['consumption'].max() * 1.05])
+  fig_2.update_yaxes(range=[0, df['demand'].max() * 1.05])
   st.plotly_chart(fig_2, use_container_width=True, sharing="streamlit")
   
   st.subheader('Сгенерированный случайный срок от заказа до поставки на основании введенных данных')
