@@ -135,7 +135,7 @@ fact_stock['Точка заказа'] = reorder_level
 fact_stock['Страховой запас'] = safety_stock_pieces
 
 st.subheader("Моделирование 30 дней")
-st.info(f"Страхового запаса не зватило (возник дефицит) в {(df['fact_stock_before'] == 0).sum()} случаях из {len(df)}")
+st.info(f"Страхового запаса не хватило (возник дефицит) в {(df['fact_stock_before'] == 0).sum()} случаях из {len(df)}")
 fig_4 = go.Figure()
 fig_4.add_trace(go.Scatter(x=fact_stock['step'], y=fact_stock['fact_stock'], fill='tozeroy', name='Объема запаса в точке хранения'))
 fig_4.add_trace(go.Scatter(x=fact_stock['step'], y=fact_stock['Страховой запас'], name='Страховой запас'))
