@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import random
 
-st.markdown('''<p>Разработчик: Павел Молотивский<p>''', unsafe_allow_html=True)
+st.markdown('Разработчик: Павел Молотивский')
 
 with st.sidebar:
   st.title('Введите данные для моделирования элемента цепочки поставок (конкретного SKU)')
