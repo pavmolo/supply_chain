@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import random
 
-st.title('Разработчик: Павел Молотивский')
+st.subheader('Разработчик: Павел Молотивский')
 
 with st.sidebar:
   st.title('Введите данные для моделирования элемента цепочки поставок (конкретного SKU)')
